@@ -1,8 +1,10 @@
 <h1>機械学習によってリンクを分別すること<h1>
-<h2>抽出条件： https://support.google.com/adsense/answer/1348688</h2>
+<h4>抽出条件： https://support.google.com/adsense/answer/1348688</h4>
 
 パラメータが２つあります  
-<b><パラメータ1: 設定ファイル></b>  
+　　
+<b>パラメータ1: 設定ファイル</b>  
+設定ファイルの中：　　
 ・はじめのURL(デフォルト：http://www.gmo-toku.jp/)  
 ・抽出の深度(デフォルト：1)  
 ・アルゴリズム(デフォルト：, 可能性：)  
