@@ -5,7 +5,13 @@
 <br>
 <b>パラメータ1: 設定ファイル</b>  
 設定ファイルの中：<br>
-・はじめのURL(デフォルト：http://www.gmo-toku.jp/)  
-・抽出の深度(デフォルト：1)  
-・アルゴリズム(デフォルト：, 可能性：)  
-・抽出タイプ（1:上記の条件に間に合う、1ではない：間に合わない、デフォルト：1）  
+・はじめのURL
+・抽出の深度
+・アルゴリズム (可能性：)  
+・抽出タイプ  （1:上記の条件に間に合う、1ではない：間に合わない、デフォルト：1）  
+
+デフォルトの設定ファイル： src/main/resources/defaultConfig<br>
+url=http://www.gmo-toku.jp<br>
+depth=1<br>
+learning=DefaultMachine<br>
+output=1<br>
