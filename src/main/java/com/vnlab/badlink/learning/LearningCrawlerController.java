@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.atilika.kuromoji.Token;
-import org.atilika.kuromoji.Tokenizer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import com.vnlab.badlink.utils.BLConstants;
@@ -25,10 +23,7 @@ public class LearningCrawlerController {
 		linkObj.setURL(url);
 		Document doc = Jsoup.connect(url).get();
 		String text = doc.body().text();
-		Tokenizer tokenizer = Tokenizer.builder().build();
-		for (Token token : tokenizer.tokenize(text)) {
-			linkObj.addWord(token.getSurfaceForm());
-		}
+		linkObj.setWords(text);
 		return linkObj;
 	}
 

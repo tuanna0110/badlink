@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.atilika.kuromoji.Token;
-import org.atilika.kuromoji.Tokenizer;
-
 import com.vnlab.badlink.learning.Learning;
 import com.vnlab.badlink.model.LinkObject;
 import com.vnlab.badlink.utils.BLConfig;
-import com.vnlab.badlink.utils.BLConstants;
 
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -53,10 +49,7 @@ public class BLCrawler extends WebCrawler {
 		// System.out.println(page.getWebURL().getURL());
 		if (page.getParseData() instanceof HtmlParseData) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-			Tokenizer tokenizer = Tokenizer.builder().build();
-			for (Token token : tokenizer.tokenize(htmlParseData.getText())) {
-				linkObj.addWord(token.getSurfaceForm());
-			}
+			linkObj.setWords(htmlParseData.getText());
 		}
 		;
 		if (this.lm == null

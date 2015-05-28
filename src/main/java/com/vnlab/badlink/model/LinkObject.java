@@ -1,29 +1,30 @@
 package com.vnlab.badlink.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LinkObject {
 	private String url;
 	private int type;
-	private List<String> words;
+	private String words;	
 	
-	public LinkObject() {
-		this.words = new ArrayList<String>();
+	public String getUrl() {
+		return url;
 	}
-	
-	public void addWord(String word) {
-		this.words.add(word);
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
-	
-	public List<String> getWords() {
-		return this.words;
+
+	public String getWords() {
+		return words;
 	}
-	
+
+	public void setWords(String words) {
+		this.words = words;
+	}
+
 	public void setType(int type) {
 		this.type = type;
 	}
-	
+
 	public int getType() {
 		return this.type;
 	}

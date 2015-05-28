@@ -11,7 +11,6 @@ import java.util.List;
 import uk.org.lidalia.slf4jext.Logger;
 import uk.org.lidalia.slf4jext.LoggerFactory;
 
-import com.vnlab.badlink.crawler.BLCrawler;
 import com.vnlab.badlink.crawler.LinkCrawlController;
 import com.vnlab.badlink.learning.Learning;
 import com.vnlab.badlink.utils.BLConfig;
