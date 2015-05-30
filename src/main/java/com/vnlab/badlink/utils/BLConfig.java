@@ -10,7 +10,6 @@ import uk.org.lidalia.slf4jext.LoggerFactory;
 public class BLConfig {
 	private String crawlUrl;
 	private int crawlDepth;
-	private String learningMachine;
 	public static int outputType;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BLConfig.class);
@@ -21,7 +20,6 @@ public class BLConfig {
 			prop.load(getClass().getResourceAsStream("/defaultConfig"));
 			this.setCrawlUrl(prop.getProperty("url"));
 			this.setCrawlDepth(new Integer(prop.getProperty("depth")).intValue());
-			this.setLearningMachine(prop.getProperty("learning"));
 			BLConfig.outputType = new Integer(prop.getProperty("output")).intValue();
 		} catch (Exception e) {
 			System.out.println("Default config file had error");
@@ -46,14 +44,6 @@ public class BLConfig {
 		this.crawlDepth = crawlDepth;
 	}
 
-	public String getLearningMachine() {
-		return learningMachine;
-	}
-
-	public void setLearningMachine(String learningMachine) {
-		this.learningMachine = learningMachine;
-	}
-
 	public int getOutputType() {
 		return outputType;
 	}
@@ -61,7 +51,6 @@ public class BLConfig {
 	public void readConfigFile(String configFile) {
 		String backupUrl = this.crawlUrl;
 		int backupDepth = this.crawlDepth;
-		String backupLearning = this.learningMachine;
 		int backupOutput = BLConfig.outputType;
 		FileInputStream fi = null;
 
@@ -71,13 +60,11 @@ public class BLConfig {
 			prop.load(fi);
 			this.setCrawlUrl(prop.getProperty("url"));
 			this.setCrawlDepth(new Integer(prop.getProperty("depth")).intValue());
-			this.setLearningMachine(prop.getProperty("learning"));
 			BLConfig.outputType = new Integer(prop.getProperty("output")).intValue();
 		} catch (Exception e) {
 			System.out.println("Error when read config file. Load config from default file");
 			this.crawlUrl = backupUrl;
 			this.crawlDepth = backupDepth;
-			this.learningMachine = backupLearning;
 			BLConfig.outputType = backupOutput;			
 		}  finally {
 			if (fi != null) {

@@ -46,7 +46,6 @@ public class BLCrawler extends WebCrawler {
 	public void visit(Page page) {
 		LinkObject linkObj = new LinkObject();
 		linkObj.setURL(page.getWebURL().getURL());
-		// System.out.println(page.getWebURL().getURL());
 		if (page.getParseData() instanceof HtmlParseData) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 			linkObj.setWords(htmlParseData.getText());

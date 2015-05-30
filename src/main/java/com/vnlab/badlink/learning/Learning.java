@@ -1,6 +1,6 @@
 package com.vnlab.badlink.learning;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import com.vnlab.badlink.utils.BLConstants;
@@ -16,12 +16,14 @@ public class Learning {
 		this.lm = (LearningMachine) Class.forName(BLConstants.LEARNING_MACHINE_DIR + "." + lmClassName).newInstance();
 	}
 	
-	public void learn() throws IOException {
-		if (BLConstants.FORCE_REBUILD_DATA || !lm.hasLearned()) {
-			List<LinkObject> listObject = crawlController.crawlBadSite();
-			listObject.addAll(crawlController.crawlGoodSite());
-			lm.learn(listObject);
-		}
+	public void createTrainingData() throws Exception {
+		List<LinkObject> listObject = crawlController.crawlBadSite();
+		listObject.addAll(crawlController.crawlGoodSite());
+		lm.createTrainingData(listObject);		
+	}
+	
+	public void learn(InputStream input) throws Exception {
+		lm.learn(input);
 	}
 	
 	public int assessObject(LinkObject obj) {

@@ -1,7 +1,7 @@
 package com.vnlab.badlink;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,21 +28,30 @@ public class App {
 		
 		System.out.println("--------READ CONFIG FILE----------");
 		BLConfig blConfig = new BLConfig();
-		if (args.length > 1) {
-			blConfig.readConfigFile(args[0]);
+		if (args.length < 1) {
+			System.out.println("You need pass training data");
+			System.exit(0);
+		}
+		
+		if (args.length > 2) {
+			blConfig.readConfigFile(args[1]);
 		}		
 		
 		System.out.println("\n");
 		System.out.println("--------LEARNING----------");
 		Learning lm = null;
 		try {
-			lm = learn(blConfig.getLearningMachine());
+			lm = new Learning("ComplementNaiveBayes");			
 		} catch (ClassNotFoundException | IllegalAccessException
 				| InstantiationException e) {
 			System.out.println("Cannot find class for learning machine");
 			logger.error("Cannot find class for learning machine ", e);
 			System.exit(0);
-		} catch (IOException e) {
+		}
+		
+		try {
+			lm.learn(new FileInputStream(args[0]));
+		} catch (Exception e) {
 			System.out.println("Cannot find data for learning");
 			logger.error("Cannot find data for learning ", e);
 			System.exit(0);
@@ -54,7 +63,6 @@ public class App {
 			List<String> urlList = crawl(lm, blConfig);
 			Path outPath = Paths.get(new File(".").getCanonicalPath() + "\\"
 					+ BLConstants.OUTPUT_FILE);
-			//System.out.println(urlList.size());
 			Files.write(outPath, urlList, StandardCharsets.UTF_8);
 		} catch (Exception e) {
 			System.out.println("Cannot create controller of crawler");
@@ -63,14 +71,6 @@ public class App {
 
 		System.out.println("\n");
 		System.out.println("--------END----------");
-	}
-
-	public static Learning learn(String learningClassName)
-			throws ClassNotFoundException, IllegalAccessException,
-			InstantiationException, IOException {
-		Learning lm = new Learning(learningClassName);
-		lm.learn();
-		return lm;
 	}
 
 	public static List<String> crawl(Learning lm, BLConfig blConfig) throws Exception {

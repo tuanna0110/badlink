@@ -17,9 +17,7 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 public class Test {
 	   public static void main(String[] args) throws Exception {
 		     FastVector      atts;
-		     FastVector      attVals;
 		     Instances       data;
-		     int             i;
 		 
 		     // 1. set up attributes
 		     Attribute docContent = new Attribute("docContent", (FastVector) null);
@@ -66,13 +64,44 @@ public class Test {
 		     filter.setUseStoplist(true);
 		     filter.setInputFormat(data);
 		     Instances filterData = Filter.useFilter(data, filter);
+		     
 		     System.out.println(filterData);
 		     
-		     filter.input(instanceA);		    
+		     filter = new StringToWordVector();
+//		     String[] options = new String[4];
+//		     options[0] = "-T";
+//		     options[1] = "-I";
+//		     options[2] = "-L";
+//		     options[3] = "-tokenizer com.vnlab.badlink.tokenizer.JapaneseTokenizer";
+		     filter.setTokenizer(new JapaneseTokenizer());
+		     filter.setIDFTransform(true);
+		     filter.setTFTransform(true);
+		     filter.setLowerCaseTokens(true);
+		     filter.setNormalizeDocLength(new SelectedTag(StringToWordVector.FILTER_NORMALIZE_ALL, StringToWordVector.TAGS_FILTER));
+		     
+		     filter.setStopwords(new File(Test.class.getResource("/jaStopWord").getPath()));
+		     filter.setUseStoplist(true);
+		     filter.setInputFormat(data);
+		     Instance instanceC = new Instance(2);
+		     instanceC.setDataset(data);
+		     instanceC.setValue(0, "このフィルムが嫌い");
+		     
+		     Filter.useFilter(data, filter);
+		     filter.input(instanceC);
+		     Instance fileter = filter.output();
 		     
 		     Classifier classifier = new ComplementNaiveBayes();
 		     classifier.buildClassifier(filterData);
-		     double predicted = classifier.classifyInstance(filter.output());
+		     System.out.println(filterData.classIndex());
+		     double predicted = classifier.classifyInstance(fileter);
+		     System.out.println(predicted);
+		     System.out.println(filterData.classAttribute().value((int)predicted));
+		     
+		     Instance instanceD = new Instance(2);
+		     instanceD.setDataset(data);
+		     instanceD.setValue(0, "あの寿司が多い");
+		     filter.input(instanceD);
+		     predicted = classifier.classifyInstance(filter.output());
 		     System.out.println(predicted);
 		     System.out.println(filterData.classAttribute().value((int)predicted));
 		   }
