@@ -7,12 +7,12 @@ JARファイルを作るために、プロジェクトのフォルダでmvn pack
 あとでtargetフォルダでjarファイルが作成されました。<br>
 <br>
 jarファイルがあるとき、下記のコマンドを実行してください：<br>
-java -Dfile.encoding=UTF-8 <b>$param1</b> <b>$param2</b> <b>$param3</b>
+java -Dfile.encoding=UTF-8 <b>$param1</b> <b>$param2</b> <b>$param3</b><br>
 <br>
-<b>param1</b>: 作成されたJARファイル<br>  
-<b>param2</b>: トレーニングデータのファイル<<br>  
-<b>param3</b>: 設定ファイル</b>  
-設定ファイルの中：<br>
+<b>param1</b>: 作成されたJARファイル<br>
+<b>param2</b>: トレーニングデータのファイル<br>
+<b>param3</b>: 設定ファイル</b><br>
+設定ファイルの中に下記のフィールドがあります：<br>
 ・はじめのURL<br>
 ・抽出の深度<br>
 ・抽出タイプ  （1:上記の条件に間に合う、1ではない：間に合わない、デフォルト：1）  
