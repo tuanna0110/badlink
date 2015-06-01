@@ -7,6 +7,7 @@ import java.util.List;
 import uk.org.lidalia.slf4jext.Logger;
 import uk.org.lidalia.slf4jext.LoggerFactory;
 import weka.classifiers.Classifier;
+import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -29,6 +30,7 @@ public class ComplementNaiveBayes implements LearningMachine {
 	private Classifier classifier;
 	private StringToWordVector filter;
 	private Instances dataFormat;
+	private FilteredClassifier fc;
 	
 	public ComplementNaiveBayes() {
 		super();
@@ -43,20 +45,25 @@ public class ComplementNaiveBayes implements LearningMachine {
 		linkClass[0] = "good";
 		linkClass[1] = "bad";
 		Instances dataFormat = this.createFormatData();
+//		ArffSaver saver = new ArffSaver();
+	    
+	    //saver.setInstances(dataFormat);
+//	    saver.setFile(new File(DATA_WRITE_PATH));
 		for (LinkObject linkObj: listObjects) {
 			 Instance instance = new Instance(2);
 		     instance.setDataset(dataFormat);
 		     instance.setValue(0, linkObj.getWords());
-		     instance.setValue(1, linkClass[linkObj.getType()]);		     
+		     instance.setValue(1, linkClass[linkObj.getType()]);
+		     //saver.writeIncremental(instance);
 		     dataFormat.add(instance);
 		}
-		this.filter.setInputFormat(dataFormat);
-	    Instances filterData = Filter.useFilter(dataFormat, filter);
-	    this.classifier.buildClassifier(filterData);
+		//this.filter.setInputFormat(dataFormat);
+	    //Instances filterData = Filter.useFilter(dataFormat, filter);
 	    ArffSaver saver = new ArffSaver();
 	    
-	    saver.setInstances(filterData);
+	    saver.setInstances(dataFormat);
 	    saver.setFile(new File(DATA_WRITE_PATH));
+	    //saver.writeIncremental(instance);
 	    saver.writeBatch();
 	}
 
@@ -64,20 +71,33 @@ public class ComplementNaiveBayes implements LearningMachine {
 	public void learn(InputStream input) throws Exception{
 		 DataSource source = new DataSource(input);
 		 Instances data = source.getDataSet();
-		 data.setClassIndex(0);
-		 this.classifier.buildClassifier(data);
-		 this.filter.setInputFormat(this.dataFormat);
-    	 Filter.useFilter(this.dataFormat, filter);
+		 //data.setClassIndex(0);
+		 data.setClassIndex(data.numAttributes() - 1);
+		 //this.classifier.buildClassifier(data);
+		 this.filter.setInputFormat(data);
+		 fc = new FilteredClassifier();
+		 fc.setFilter(filter);
+		// fc.setClassifier(this.classifier);
+		 // train and make predictions
+		 fc.buildClassifier(data);
 	}
 
 	@Override
 	public int getTypeOfObj(LinkObject listObjects) {
 		 Instance instance = new Instance(2);
-	     instance.setDataset(this.dataFormat);
+		 Instances data = this.createFormatData();
+	     instance.setDataset(data);
 	     instance.setValue(0,listObjects.getWords());
-	     try {	    	 	    	 
-	    	 this.filter.input(instance);
-	    	 return (int) this.classifier.classifyInstance(filter.output());
+	     
+	     data.add(instance);
+	     try {
+//	    	 System.out.println(data);
+////		     this.filter.setInputFormat(data);
+////	    	 System.out.println(Filter.useFilter(data, this.filter));	    	 
+//	    	 this.filter.input(instance);
+//	    	 Instance k = this.filter.output();
+//	    	 System.out.println(k);
+	    	 return (int) this.fc.classifyInstance(instance);
 	     } catch (Exception e) {
 	    	 logger.error("Classifier return error", e);
 	    	 return 0;

@@ -8,10 +8,17 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import uk.org.lidalia.slf4jext.Logger;
+import uk.org.lidalia.slf4jext.LoggerFactory;
+
 import com.vnlab.badlink.utils.BLConstants;
 import com.vnlab.badlink.model.LinkObject;
 
 public class LearningCrawlerController {
+	
+	protected static final Logger logger = LoggerFactory.getLogger(LearningCrawlerController.class);
+	
 	private final String BAD_FILE = "/bad";
 	private final String GOOD_FILE = "/good";
 
@@ -42,9 +49,14 @@ public class LearningCrawlerController {
 				getClass().getResourceAsStream(fileName)));
 		String line = null;
 		while ((line = br.readLine()) != null) {
-			LinkObject linkObj = this.crawl(line);
-			linkObj.setType(type);
-			linkObjectList.add(linkObj);
+			try {
+				LinkObject linkObj = this.crawl(line);
+				linkObj.setType(type);
+				linkObjectList.add(linkObj);
+			} catch (IOException e) {
+				logger.error("Cannot get info from url: " + line, e);
+				continue;
+			}			
 		}
 		br.close();
 		return linkObjectList;

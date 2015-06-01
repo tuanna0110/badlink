@@ -71,6 +71,7 @@ public class App {
 
 		System.out.println("\n");
 		System.out.println("--------END----------");
+		System.out.println("--------BADLINK.TXT FILE CREATED----------");
 	}
 
 	public static List<String> crawl(Learning lm, BLConfig blConfig) throws Exception {

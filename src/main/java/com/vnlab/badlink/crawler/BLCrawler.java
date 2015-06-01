@@ -1,8 +1,12 @@
 package com.vnlab.badlink.crawler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import com.vnlab.badlink.learning.Learning;
 import com.vnlab.badlink.model.LinkObject;
@@ -46,11 +50,20 @@ public class BLCrawler extends WebCrawler {
 	public void visit(Page page) {
 		LinkObject linkObj = new LinkObject();
 		linkObj.setURL(page.getWebURL().getURL());
+		
+		
 		if (page.getParseData() instanceof HtmlParseData) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 			linkObj.setWords(htmlParseData.getText());
 		}
 		;
+		try {
+			Document doc = Jsoup.connect(page.getWebURL().getURL()).get();
+			String text = doc.body().text();
+			linkObj.setWords(text);
+		} catch (IOException e) {
+			
+		}
 		if (this.lm == null
 				|| this.lm.assessObject(linkObj) == BLConfig.outputType) {
 			logger.info("Accept Link: " + linkObj.getURL());
