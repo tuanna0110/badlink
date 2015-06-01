@@ -74,7 +74,7 @@ public class ComplementNaiveBayes implements LearningMachine {
 		 //data.setClassIndex(0);
 		 data.setClassIndex(data.numAttributes() - 1);
 		 
-		 
+		 this.classifier = new weka.classifiers.bayes.ComplementNaiveBayes();
 		 this.filter.setInputFormat(data);
 		 Instances filterData = Filter.useFilter(data, filter);
 		 this.classifier.buildClassifier(filterData);
@@ -99,8 +99,8 @@ public class ComplementNaiveBayes implements LearningMachine {
 ////	    	 System.out.println(Filter.useFilter(data, this.filter));	    	 
 	    	 this.filter.input(instance);
 	    	 Instance k = this.filter.output();
-	    	 //System.out.println(k);
-	    	 //return (int) this.fc.classifyInstance(instance);
+//	    	 System.out.println(k);
+//	    	 return (int) this.fc.classifyInstance(instance);
 	    	 return (int) this.classifier.classifyInstance(k);
 	     } catch (Exception e) {
 	    	 logger.error("Classifier return error", e);
@@ -116,8 +116,9 @@ public class ComplementNaiveBayes implements LearningMachine {
 	private StringToWordVector createStringFilter() {
 		 StringToWordVector filter = new StringToWordVector();
 	     filter.setTokenizer(new JapaneseTokenizer());
-	     filter.setIDFTransform(true);
-	     filter.setTFTransform(true);
+	     filter.setOutputWordCounts(true);
+//	     filter.setIDFTransform(true);
+//	     filter.setTFTransform(true);
 	     filter.setLowerCaseTokens(true);
 	     filter.setNormalizeDocLength(new SelectedTag(StringToWordVector.FILTER_NORMALIZE_ALL, StringToWordVector.TAGS_FILTER));
 	     

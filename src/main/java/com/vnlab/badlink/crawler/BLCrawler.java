@@ -1,6 +1,12 @@
 package com.vnlab.badlink.crawler;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -38,7 +44,7 @@ public class BLCrawler extends WebCrawler {
 	@Override
 	public boolean shouldVisit(Page referringPage, WebURL url) {
 		String href = url.getURL().toLowerCase();
-		return !FILTERS.matcher(href).matches();
+		return !FILTERS.matcher(href).matches() && href.contains("gmo-toku.jp");
 	}
 
 	@Override
@@ -50,23 +56,30 @@ public class BLCrawler extends WebCrawler {
 	public void visit(Page page) {
 		LinkObject linkObj = new LinkObject();
 		linkObj.setURL(page.getWebURL().getURL());
-		
-		
+
 		if (page.getParseData() instanceof HtmlParseData) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 			linkObj.setWords(htmlParseData.getText());
 		}
 		;
-		try {
-			Document doc = Jsoup.connect(page.getWebURL().getURL()).get();
-			String text = doc.body().text();
-			linkObj.setWords(text);
-		} catch (IOException e) {
-			
-		}
+//		try {
+//			Document doc = Jsoup.connect(page.getWebURL().getURL()).get();
+//			String text = doc.body().text();
+//			linkObj.setWords(text);
+//		} catch (IOException e) {
+//
+//		}
 		if (this.lm == null
 				|| this.lm.assessObject(linkObj) == BLConfig.outputType) {
 			logger.info("Accept Link: " + linkObj.getURL());
+			try (PrintWriter out = new PrintWriter(new BufferedWriter(
+					new OutputStreamWriter(new FileOutputStream("badlink.txt",
+							true), StandardCharsets.UTF_8)))) {
+				out.println(page.getWebURL().getURL());
+				out.close();
+			} catch (IOException e) {
+				logger.error("Write bad link to file failed", e);
+			}
 			this.myLocalData.add(linkObj.getURL());
 		} else {
 			logger.info("Discard link: " + linkObj.getURL());

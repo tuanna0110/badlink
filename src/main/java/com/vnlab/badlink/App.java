@@ -61,9 +61,9 @@ public class App {
 		System.out.println("--------CRAWLING----------");
 		try {
 			List<String> urlList = crawl(lm, blConfig);
-			Path outPath = Paths.get(new File(".").getCanonicalPath() + "\\"
-					+ BLConstants.OUTPUT_FILE);
-			Files.write(outPath, urlList, StandardCharsets.UTF_8);
+//			Path outPath = Paths.get(new File(".").getCanonicalPath() + "\\"
+//					+ BLConstants.OUTPUT_FILE);
+//			Files.write(outPath, urlList, StandardCharsets.UTF_8);
 		} catch (Exception e) {
 			System.out.println("Cannot create controller of crawler");
 			System.exit(0);

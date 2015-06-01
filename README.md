@@ -6,13 +6,13 @@
 JARファイルを作るために、プロジェクトのフォルダでmvn packageというコマンドをご実行ください。<br>
 あとでtargetフォルダでjarファイルが作成されました。<br>
 <br>
-jarファイルがあるとき、下記のコマンドを実行してください：<br>
+jarファイルがあるとき、下記のコマンドをご実行してください：<br>
 java -Dfile.encoding=UTF-8 <b>$param1</b> <b>$param2</b> <b>$param3</b><br>
 <br>
-<b>param1</b>: 作成されたJARファイル<br>
-<b>param2</b>: トレーニングデータのファイル<br>
-アップロードさてたファイルデータ：　https://app.box.com/s/ktw46oqq44q6cvd3qzwi9jszoz7dk4ds<br>
-<b>param3</b>: 設定ファイル</b><br>
+<b>param1</b>: 作成されたJARファイル (必須）<br>
+<b>param2</b>: トレーニングデータのファイル　（必須）<br>
+アップロードさてたファイルデータ：　https://app.box.com/s/zz0ow8cp874z8por9di67cse8557qjq1<br>
+<b>param3</b>: 設定ファイル　（必須ではない）<br>
 設定ファイルの中に下記のフィールドがあります：<br>
 ・はじめのURL<br>
 ・抽出の深度<br>
@@ -24,7 +24,10 @@ output=1<br>
 
 ログを出したい場合、上記のコマンドの終わりに、"2>><b>ログファイルのパス</b>"というパラメターをご追加ください。<br>
 
+コマンドを実行する中に、見つかれたURLはすぐで同じなフォルダーのbadlink.txtファイルに書かれます。
+URLをたくさん抽出したい場合は、抽出の深度をお上げください。（時間もたくさんかかります。）
+
 ※情報共有:<br>
-・アルゴリズム：　Transformed Weight-normalized Complement Naive Bayes
-・言語：　JAVA。　選択の理由：　JAVAでCrawler, Japanese Tokenizer と機械学習のライブラリがすでにありますから、完全なプログラムを簡単にできます。
-・工夫したところ：　
+・アルゴリズム：　Document-Length-Normalized Complement Naive Bayes<br>
+・言語：　JAVA。　選択した理由：　JAVAでCrawler, Japanese Tokenizer と機械学習のライブラリが既にありますから、完全なプログラムを簡単にできます。<br>
+・工夫したところ：　残念ですが、特にないを思います。品質を上げるためのしたいことが多いですが（さまざまなトレーニングデータを集めて、プログラムを実行するときではなく既に学習実行する方を探して、より良いアルゴリズムをアプリして）、時間が足りません。<br>
