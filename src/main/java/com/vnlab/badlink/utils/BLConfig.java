@@ -48,7 +48,7 @@ public class BLConfig {
 
 		try {
 			Properties prop = new Properties();
-			fi = new FileInputStream("configFile"); 
+			fi = new FileInputStream(configFile); 
 			prop.load(fi);
 			BLConfig.crawlUrl = prop.getProperty("url");
 			this.setCrawlDepth(new Integer(prop.getProperty("depth")).intValue());
