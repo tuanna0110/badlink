@@ -14,7 +14,7 @@ java -Dfile.encoding=UTF-8 -jar <b>$param1</b> <b>$param2</b> <b>$param3</b><br>
 アップロードされたファイルデータ：　https://app.box.com/s/zz0ow8cp874z8por9di67cse8557qjq1<br>
 <b>param3</b>: 設定ファイル　（必須ではない）<br>
 設定ファイルの中に下記のフィールドがあります：<br>
-・はじめのURL<br>
+・クロールしたいサイトのURL<br>
 ・抽出の深度<br>
 ・抽出タイプ  （1:条件に間に合う、1ではない：間に合わない）<br>
 デフォルトの設定ファイル： src/main/resources/defaultConfig<br>
