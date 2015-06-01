@@ -73,11 +73,14 @@ public class ComplementNaiveBayes implements LearningMachine {
 		 Instances data = source.getDataSet();
 		 //data.setClassIndex(0);
 		 data.setClassIndex(data.numAttributes() - 1);
-		 //this.classifier.buildClassifier(data);
+		 
+		 
 		 this.filter.setInputFormat(data);
+		 Instances filterData = Filter.useFilter(data, filter);
+		 this.classifier.buildClassifier(filterData);
 		 fc = new FilteredClassifier();
 		 fc.setFilter(filter);
-		// fc.setClassifier(this.classifier);
+		 fc.setClassifier(this.classifier);
 		 // train and make predictions
 		 fc.buildClassifier(data);
 	}
@@ -89,15 +92,16 @@ public class ComplementNaiveBayes implements LearningMachine {
 	     instance.setDataset(data);
 	     instance.setValue(0,listObjects.getWords());
 	     
-	     data.add(instance);
+//	     data.add(instance);
 	     try {
 //	    	 System.out.println(data);
 ////		     this.filter.setInputFormat(data);
 ////	    	 System.out.println(Filter.useFilter(data, this.filter));	    	 
-//	    	 this.filter.input(instance);
-//	    	 Instance k = this.filter.output();
-//	    	 System.out.println(k);
-	    	 return (int) this.fc.classifyInstance(instance);
+	    	 this.filter.input(instance);
+	    	 Instance k = this.filter.output();
+	    	 //System.out.println(k);
+	    	 //return (int) this.fc.classifyInstance(instance);
+	    	 return (int) this.classifier.classifyInstance(k);
 	     } catch (Exception e) {
 	    	 logger.error("Classifier return error", e);
 	    	 return 0;

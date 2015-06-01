@@ -17,9 +17,9 @@ public class Learning {
 	}
 	
 	public void createTrainingData() throws Exception {
-		//List<LinkObject> listObject = crawlController.crawlBadSite();
-		//listObject.addAll(crawlController.crawlGoodSite());
-		List<LinkObject> listObject = crawlController.crawlGoodSite();
+		List<LinkObject> listObject = crawlController.crawlBadSite();
+		listObject.addAll(crawlController.crawlGoodSite());
+		//List<LinkObject> listObject = crawlController.crawlGoodSite();
 		lm.createTrainingData(listObject);		
 	}
 	
