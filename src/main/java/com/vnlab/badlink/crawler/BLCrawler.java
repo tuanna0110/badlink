@@ -44,7 +44,7 @@ public class BLCrawler extends WebCrawler {
 	@Override
 	public boolean shouldVisit(Page referringPage, WebURL url) {
 		String href = url.getURL().toLowerCase();
-		return !FILTERS.matcher(href).matches() && href.contains("gmo-toku.jp");
+		return !FILTERS.matcher(href).matches() && href.contains(BLConfig.crawlUrl);
 	}
 
 	@Override

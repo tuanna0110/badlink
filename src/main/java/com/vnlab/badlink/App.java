@@ -88,7 +88,7 @@ public class App {
 		LinkCrawlController controller = new LinkCrawlController(config,
 				pageFetcher, robotstxtServer);
 		controller.setLearning(lm);
-		controller.addSeed(blConfig.getCrawlUrl());
+		controller.addSeed(BLConfig.crawlUrl);
 		controller.startWithBLCrawler(1, true);
 		return controller.getLinkList();
 	}
