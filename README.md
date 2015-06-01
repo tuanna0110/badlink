@@ -7,11 +7,11 @@ JARファイルを作るために、プロジェクトのフォルダでmvn pack
 あとでtargetフォルダでjarファイルが作成されました。<br>
 <br>
 jarファイルがあるとき、下記のコマンドをご実行してください：<br>
-java -Dfile.encoding=UTF-8 <b>$param1</b> <b>$param2</b> <b>$param3</b><br>
+java -Dfile.encoding=UTF-8 -jar <b>$param1</b> <b>$param2</b> <b>$param3</b><br>
 <br>
 <b>param1</b>: 作成されたJARファイル (必須）<br>
 <b>param2</b>: トレーニングデータのファイル　（必須）<br>
-アップロードさてたファイルデータ：　https://app.box.com/s/zz0ow8cp874z8por9di67cse8557qjq1<br>
+アップロードされたファイルデータ：　https://app.box.com/s/zz0ow8cp874z8por9di67cse8557qjq1<br>
 <b>param3</b>: 設定ファイル　（必須ではない）<br>
 設定ファイルの中に下記のフィールドがあります：<br>
 ・はじめのURL<br>
@@ -25,7 +25,7 @@ output=1<br>
 ログを出したい場合、上記のコマンドの終わりに、"2>><b>ログファイルのパス</b>"というパラメターをご追加ください。<br>
 
 コマンドを実行する中に、見つかれたURLはすぐで同じなフォルダーのbadlink.txtファイルに書かれます。
-URLをたくさん抽出したい場合は、抽出の深度をお上げください。（時間もたくさんかかります。）
+URLをたくさん抽出したい場合は、設定ファイルで抽出の深度をお上げください。（時間もたくさんかかります。）
 
 ※情報共有:<br>
 ・アルゴリズム：　Document-Length-Normalized Complement Naive Bayes<br>
