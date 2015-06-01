@@ -33,7 +33,7 @@ public class App {
 			System.exit(0);
 		}
 		
-		if (args.length > 2) {
+		if (args.length >= 2) {
 			blConfig.readConfigFile(args[1]);
 		}		
 		
