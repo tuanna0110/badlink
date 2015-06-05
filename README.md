@@ -31,5 +31,15 @@ URLをたくさん抽出したい場合は、設定ファイルで抽出の深�
 
 ※情報共有:<br>
 ・アルゴリズム：　Document-Length-Normalized Complement Naive Bayes<br>
-・言語：　JAVA。　選択した理由：　JAVAでCrawler, Japanese Tokenizer と機械学習のライブラリが既にありますから、完全なプログラムを簡単にできます。<br>
-・工夫したところ：　残念ですが、特にないを思います。品質を上げるためのしたいことが多いですが（さまざまなトレーニングデータを集めて、プログラムを実行するときではなく既に学習実して、より良いアルゴリズムをアプリして）、時間が足りません。<br>
+
+・言語：　JAVA。<br>
+
+・既にあるライブラリを使っています：<br>
+Crawler: crawler4j(https://github.com/yasserg/crawler4j) jsoup: (https://github.com/jhy/jsoup/)<br>
+Japanese Tokenizer: kuromoji (https://github.com/atilika/kuromoji)<br>
+Machine Learning Library: weka(http://www.cs.waikato.ac.nz/ml/weka/)<br>
+
+・未来のしたいこと:<br>
+さまざまなトレーニングデータを集めます。<br>
+プログラムを実行するときではなく既に学習実します。<br>
+より良いアルゴリズム（Transformed Weight-normalized Complement Naive Bayes, Support vector machine）を使います。<br>
