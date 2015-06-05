@@ -41,5 +41,5 @@ Machine Learning Library: weka(http://www.cs.waikato.ac.nz/ml/weka/)<br>
 
 ・未来のしたいこと:<br>
 さまざまなトレーニングデータを集めます。<br>
-プログラムを実行するときではなく既に学習実します。<br>
+プログラムを実行するときではなく既に学習実行します。<br>
 より良いアルゴリズム（Transformed Weight-normalized Complement Naive Bayes, Support vector machine）を使います。<br>
